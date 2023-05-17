@@ -10,7 +10,7 @@ import SwiftUI
 
 class ProductViewModel : ObservableObject {
     
-    @Published var productList = [ProductList]()
+    var productList = [ProductList]()
     @Published var filteredProductList = [ProductList]()
     private var webService = ApiCall()
     
