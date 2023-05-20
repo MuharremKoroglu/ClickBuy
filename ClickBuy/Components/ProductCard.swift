@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductCard: View {
     
+    @ObservedObject var cartManager = CartManager()
     let selectedProduct : ProductList
     
     var body: some View {
@@ -49,7 +50,7 @@ struct ProductCard: View {
                             
                             Image(systemName: "heart.fill")
                                 .resizable()
-                                .foregroundColor(.red)
+                                .foregroundColor(Color(hue: 1.0, saturation: 0.849, brightness: 0.832))
                                 .scaledToFit()
                                 .frame(width: 15,height: 15)
                             
@@ -66,7 +67,7 @@ struct ProductCard: View {
             }.frame(width: 180,height: 250)
             
             Button {
-                print("Button clicked")
+                cartManager.addToCart(product: selectedProduct)
             } label: {
                 Image(systemName: "plus")
                     .padding(5)

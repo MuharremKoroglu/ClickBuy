@@ -22,7 +22,11 @@ class ProductViewModel : ObservableObject {
                     print(error)
                 case .success(let products) :
                 DispatchQueue.main.async {
-                    self.productList = products.map(ProductList.init)
+                    self.productList = products.map { product in
+                        var productList = ProductList(product: product)
+                        productList.productQuantity = 0
+                        return productList
+                    }
                     self.filteredProductList = self.productList
                 }
             }
@@ -43,6 +47,8 @@ class ProductViewModel : ObservableObject {
 struct ProductList : Identifiable{
 
     var product : Product
+    
+    var productQuantity: Int = 0
     
     var id : Int {
         product.id

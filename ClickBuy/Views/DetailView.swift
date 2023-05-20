@@ -10,13 +10,8 @@ import SwiftUI
 struct DetailView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    
-    let title : String
-    let price : Double
-    let rate : Double
-    let description : String
-    let category : String
-    let image : String
+    @ObservedObject var cartManager = CartManager()
+    let selectedProduct : ProductList
     
     var body: some View {
         
@@ -28,14 +23,14 @@ struct DetailView: View {
                     .shadow(radius: 10)
                 VStack{
                     
-                    AsyncImage(url: URL(string: image)) { image in
+                    AsyncImage(url: URL(string: selectedProduct.image)) { image in
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
                     } placeholder: {
                         ProgressView()
                     }.frame(width: 200,height: 200)
                     
-                    Text(title)
+                    Text(selectedProduct.title)
                         .font(.title3)
                         .fontWeight(.heavy)
                         .frame(maxWidth: .infinity)
@@ -43,11 +38,11 @@ struct DetailView: View {
                         .multilineTextAlignment(.center)
                         .padding(10)
                     
-                    Text(category.capitalized)
+                    Text(selectedProduct.category.capitalized)
                         .font(.subheadline)
                         .padding(10)
                     
-                    Text("\(String(format: "%0.2f", price)) $")
+                    Text("\(String(format: "%0.2f", selectedProduct.price)) $")
                         .font(.title2)
                         .bold()
                         .padding(10)
@@ -55,17 +50,17 @@ struct DetailView: View {
                     HStack{
                         Image(systemName: "heart.fill")
                             .resizable()
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(hue: 1.0, saturation: 0.849, brightness: 0.832))
                             .scaledToFit()
                             .frame(width: 15,height: 15)
                         
-                        Text("\(String(format: "%0.1f", rate))")
+                        Text("\(String(format: "%0.1f", selectedProduct.rate))")
                             .font(.subheadline)
                             .bold()
                         
                     }.padding(10)
                     
-                    Text(description)
+                    Text(selectedProduct.description)
                         .font(.subheadline)
                         .padding(10)
                         .multilineTextAlignment(.center)
@@ -81,7 +76,7 @@ struct DetailView: View {
              .padding(.top,5)
             
             Button {
-                print("Added to cart")
+                cartManager.addToCart(product: selectedProduct)
             } label: {
                 ZStack{
                     RoundedRectangle(cornerRadius: 15)
@@ -120,8 +115,4 @@ struct DetailView: View {
     }
 }
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops", price: 109.95, rate: 3.9, description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday", category: "men's clothing", image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg")
-    }
-}
+

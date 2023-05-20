@@ -11,6 +11,7 @@ struct HomeView: View {
     
     @ObservedObject var productVM = ProductViewModel()
     @ObservedObject var categoryVM = CategoryViewModel()
+    @ObservedObject var cartManager = CartManager()
     @State var selected = "Electronics"
     var colums = [GridItem(.adaptive(minimum: 160),spacing: 20)]
     
@@ -28,6 +29,13 @@ struct HomeView: View {
                             .fontWeight(.heavy)
                     }.padding()
                     Spacer()
+                    NavigationLink {
+                        CartView(cartManager: cartManager)
+                    } label: {
+                        CartButton(numberOfproduct: cartManager.totalQuantities)
+                            .padding(.top,20)
+                            .padding(.trailing,15)
+                    }
                 }
                 VStack{
                     SearchBar(productVM: productVM)
@@ -44,9 +52,9 @@ struct HomeView: View {
                     LazyVGrid(columns: colums, spacing: 20){
                         ForEach(productVM.filteredProductList, id: \.id){ product in
                             NavigationLink {
-                                DetailView(title: product.title, price: product.price, rate: product.rate, description: product.description, category: product.category, image: product.image)
+                                DetailView(cartManager: cartManager,selectedProduct: product)
                             } label: {
-                                ProductCard(selectedProduct: product)
+                                ProductCard(cartManager: cartManager, selectedProduct: product)
                             }
                         }
                     }.padding()
@@ -57,6 +65,7 @@ struct HomeView: View {
             }
             
         }.tint(.black)
+         .navigationBarBackButtonHidden()
     }
 }
 
