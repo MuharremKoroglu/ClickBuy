@@ -30,10 +30,10 @@ struct SearchBar: View {
                             searchText = ""
                             productVM.filterProducts(with: searchText)
                         }
-                        
+                    
                     ,alignment: .trailing
                 )
-                
+            
         }.font(.headline)
             .padding()
             .background{

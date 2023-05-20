@@ -9,10 +9,7 @@ import SwiftUI
 
 struct ProductCard: View {
     
-    let title : String
-    let price : Double
-    let image : String
-    let rate : Double
+    let selectedProduct : ProductList
     
     var body: some View {
         ZStack(alignment: .topTrailing){
@@ -23,31 +20,31 @@ struct ProductCard: View {
                     .shadow(radius: 5)
                 
                 VStack{
-                    
-                    AsyncImage(url: URL(string: image)) { image in
+                    Spacer()
+                    AsyncImage(url: URL(string: selectedProduct.image)) { image in
                         image.resizable()
                             .renderingMode(.original)
                             .scaledToFit()
                             .padding(5)
-                            .frame(width: 120,height: 120)
+                            
                     } placeholder: {
-                        ProgressView()     
-                    }
-                    
+                        ProgressView()
+                    }.frame(width: 120,height: 120)
+                    Spacer()
                     VStack(alignment: .center){
                         
-                            Text(title)
-                                .font(.callout)
-                                .fontWeight(.heavy)
-                                .padding(.horizontal,5)
-                                .multilineTextAlignment(.center)
-                                .padding(.bottom,3)
-                                //.minimumScaleFactor(0.5)
-                                
-                            Text("\(String(format: "%0.2f", price)) $")
-                                .font(.subheadline)
-                                .bold()
-                                
+                        Text(selectedProduct.title)
+                            .font(.callout)
+                            .fontWeight(.heavy)
+                            .padding(.horizontal,5)
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom,3)
+                        //.minimumScaleFactor(0.5)
+                        
+                        Text("\(String(format: "%0.2f", selectedProduct.price)) $")
+                            .font(.subheadline)
+                            .bold()
+                        
                         HStack{
                             
                             Image(systemName: "heart.fill")
@@ -55,36 +52,30 @@ struct ProductCard: View {
                                 .foregroundColor(.red)
                                 .scaledToFit()
                                 .frame(width: 15,height: 15)
-                                
-                            Text("\(String(format: "%0.1f", rate))")
+                            
+                            Text("\(String(format: "%0.1f", selectedProduct.rate))")
                                 .font(.subheadline)
                                 .bold()
-                                
-                        }.padding(.bottom,3)
                             
+                        }.padding(.bottom,3)
+                        
                     }
-                    
+                    Spacer()
                 }
                 
             }.frame(width: 180,height: 250)
-
-                Button {
-                    print("Button clicked")
-                } label: {
-                    Image(systemName: "plus")
-                        .padding(5)
-                        .foregroundColor(.white)
-                        .background(.black)
-                        .cornerRadius(20)
-                        .padding(5)
-                        
-                }
+            
+            Button {
+                print("Button clicked")
+            } label: {
+                Image(systemName: "plus")
+                    .padding(5)
+                    .foregroundColor(.white)
+                    .background(.black)
+                    .cornerRadius(20)
+                    .padding(5)
+                
+            }
         }
-    }
-}
-
-struct ProductCard_Previews: PreviewProvider {
-    static var previews: some View {
-        ProductCard(title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops", price: 109.95, image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg", rate: 3.9)
     }
 }

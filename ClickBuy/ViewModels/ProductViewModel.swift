@@ -10,8 +10,8 @@ import SwiftUI
 
 class ProductViewModel : ObservableObject {
     
-    var productList = [ProductList]()
     @Published var filteredProductList = [ProductList]()
+    var productList = [ProductList]()
     private var webService = ApiCall()
     
     func fetchProduct (_ request : WebRequest) {
@@ -57,7 +57,7 @@ struct ProductList : Identifiable{
     }
     
     var description : String {
-        product.title
+        product.description
     }
     
     var category : String {
