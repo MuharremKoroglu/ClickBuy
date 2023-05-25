@@ -10,7 +10,11 @@ import Foundation
 class CategoryViewModel : ObservableObject {
     
     @Published var categoryList : Categories = []
-    private var webService = ApiCall()
+    private var webService : ApiService
+    
+    init(webService: ApiService) {
+        self.webService = webService
+    }
     
     func fetchProduct (_ request : WebRequest) {
         

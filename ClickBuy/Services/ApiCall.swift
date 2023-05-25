@@ -7,9 +7,14 @@
 
 import Foundation
 
-class ApiCall {
+protocol ApiService {
+    func getProduct(request: WebRequest, completion: @escaping (Result<[Product], APIError>) -> Void)
+    func getCategories(request: WebRequest, completion: @escaping (Result<Categories, APIError>) -> Void)
+}
+
+class ApiCall : ApiService {
     
-    func getProduct (request : WebRequest, completion : @escaping (Result<[Product],ErrorType>) -> Void) {
+    func getProduct(request: WebRequest, completion: @escaping (Result<[Product], APIError>) -> Void) {
         
         URLSession.shared.dataTask(with: request.url) { data, response, error in
             
@@ -36,8 +41,7 @@ class ApiCall {
         }.resume()
     }
     
-    func getCategories (request : WebRequest, completion : @escaping (Result<Categories,ErrorType>) -> Void) {
-    
+    func getCategories(request: WebRequest, completion: @escaping (Result<Categories, APIError>) -> Void) {
         
         URLSession.shared.dataTask(with: request.url) { data, response, error in
             
@@ -66,7 +70,7 @@ class ApiCall {
     }
 }
 
-enum ErrorType : Error {
+enum APIError : Error {
     case URLisNotCorrect
     case InvalidServiceResponse
     case DidntFetchData

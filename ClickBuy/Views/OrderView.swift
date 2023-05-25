@@ -11,7 +11,7 @@ struct OrderView: View {
     @ObservedObject var cartManager = CartManager()
     var body: some View {
         NavigationStack{
-            VStack{
+            VStack(alignment: .center){
                 Image(systemName: "checkmark.circle")
                     .resizable()
                     .frame(width: 100,height: 100)
@@ -34,7 +34,7 @@ struct OrderView: View {
                 }.padding()
             }
         }.onAppear{
-            cartManager.removeHoleProduct()
+            cartManager.removeAllProduct()
         }
         .navigationBarBackButtonHidden()
     }

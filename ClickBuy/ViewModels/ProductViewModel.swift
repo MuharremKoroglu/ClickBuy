@@ -6,13 +6,17 @@
 //
 
 import Foundation
-import SwiftUI
+
 
 class ProductViewModel : ObservableObject {
     
     @Published var filteredProductList = [ProductList]()
     var productList = [ProductList]()
-    private var webService = ApiCall()
+    private var webService : ApiService
+    
+    init(webService: ApiService) {
+        self.webService = webService
+    }
     
     func fetchProduct (_ request : WebRequest) {
         webService.getProduct(request: request) { result in

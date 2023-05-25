@@ -11,7 +11,7 @@ struct TabButton: View {
     
     var title : String = "Electronics"
     @Binding var selected : String
-    @ObservedObject var productVM = ProductViewModel()
+    @ObservedObject var productVM = DInjectionManager.container.resolve(ProductViewModel.self)!
     
     var body: some View {
         

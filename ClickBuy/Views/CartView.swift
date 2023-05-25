@@ -13,51 +13,53 @@ struct CartView: View {
     @ObservedObject var cartManager = CartManager()
 
     var body: some View {
-        ScrollView{
-            
+        VStack{
             if cartManager.products.count > 0 {
-                ForEach(cartManager.products, id: \.id) { product in
-                    ProductRow(cartManager: cartManager,selectedProduct: product)
-                        .padding()
-                }
-                HStack{
-                    Text("Your cart total is")
-                        .bold()
-                        .foregroundColor(.white)
-                    Spacer()
-                    Text("\(String(format: "%0.2f", cartManager.total)) $")
-                        .bold()
-                        .foregroundColor(.white)
-                }.padding()
-                    .background(RoundedRectangle(cornerRadius: 15)
-                        .foregroundColor(.black)
-                        .shadow(radius: 10)
-                        .frame(width:UIScreen.main.bounds.width - 15,height: 50)
-                    )
-                NavigationLink {
-                    OrderView()
-                } label: {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(.black)
-                            .frame(width:UIScreen.main.bounds.width - 15,height: 50)
-                            .shadow(radius: 10)
-                        HStack{
-                            Image(systemName: "creditcard")
-                                .resizable()
-                                .foregroundColor(.white)
-                                .frame(width: 30,height: 25)
-                            
-                            Text("Buy Now")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                            
-                        }
+                ScrollView{
+                    ForEach(cartManager.products, id: \.id) { product in
+                        ProductRow(cartManager: cartManager,selectedProduct: product)
+                            .padding(.bottom,10)
+                            .padding(.top,10)
                     }
-                    
+                    HStack{
+                        Text("Your cart total is")
+                            .bold()
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text("\(String(format: "%0.2f", cartManager.total)) $")
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                    }.padding()
+                        .background(RoundedRectangle(cornerRadius: 15)
+                            .foregroundColor(.black)
+                            .shadow(radius: 10)
+                            .frame(width:UIScreen.main.bounds.width - 15,height: 50)
+                        )
+                    NavigationLink {
+                        OrderView()
+                    } label: {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 15)
+                                .foregroundColor(.black)
+                                .frame(width:UIScreen.main.bounds.width - 15,height: 50)
+                                .shadow(radius: 10)
+                            HStack{
+                                Image(systemName: "creditcard")
+                                    .resizable()
+                                    .foregroundColor(.white)
+                                    .frame(width: 30,height: 25)
+                                
+                                Text("Buy Now")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                
+                            }
+                        }
+                        
+                    }
                 }
             }else{
-                VStack(){
+                VStack(alignment: .center){
                     Image(systemName: "cart.fill")
                         .resizable()
                         .frame(width: 50,height: 50)
@@ -66,8 +68,7 @@ struct CartView: View {
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                     
-                }.padding(.top,300)
-     
+                }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             }
         }.navigationBarBackButtonHidden()
             .toolbar {

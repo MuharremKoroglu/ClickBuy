@@ -37,17 +37,15 @@ struct ProductCard: View {
                         Text(selectedProduct.title)
                             .font(.callout)
                             .fontWeight(.heavy)
-                            .padding(.horizontal,5)
+                            .padding(.horizontal,10)
                             .multilineTextAlignment(.center)
                             .padding(.bottom,3)
-                        //.minimumScaleFactor(0.5)
                         
                         Text("\(String(format: "%0.2f", selectedProduct.price)) $")
                             .font(.subheadline)
                             .bold()
                         
                         HStack{
-                            
                             Image(systemName: "heart.fill")
                                 .resizable()
                                 .foregroundColor(Color(hue: 1.0, saturation: 0.849, brightness: 0.832))

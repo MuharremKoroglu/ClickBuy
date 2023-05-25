@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    @ObservedObject var productVM = ProductViewModel()
+    @ObservedObject var productVM = DInjectionManager.container.resolve(ProductViewModel.self)!
     @State var searchText = ""
     
     var body: some View {

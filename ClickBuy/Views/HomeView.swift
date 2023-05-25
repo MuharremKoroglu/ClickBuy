@@ -9,11 +9,12 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject var productVM = ProductViewModel()
-    @ObservedObject var categoryVM = CategoryViewModel()
+    @ObservedObject var productVM : ProductViewModel = DInjectionManager.container.resolve(ProductViewModel.self)!
+    @ObservedObject var categoryVM : CategoryViewModel = DInjectionManager.container.resolve(CategoryViewModel.self)!
     @ObservedObject var cartManager = CartManager()
     @State var selected = "Electronics"
     var colums = [GridItem(.adaptive(minimum: 160),spacing: 20)]
+    
     
     var body: some View {
         let lowercaseSelected = selected.lowercased()
