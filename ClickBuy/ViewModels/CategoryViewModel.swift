@@ -16,7 +16,7 @@ class CategoryViewModel : ObservableObject {
         self.webService = webService
     }
     
-    func fetchProduct (_ request : WebRequest) {
+    func fetchCategories (_ request : WebRequest) {
         
         webService.getCategories(request: request) { result in
             switch result {
