@@ -61,7 +61,7 @@ struct HomeView: View {
                     }.padding()
                 }
             }.onAppear(){
-                categoryVM.fetchProduct(WebRequest(endpoint: .products,path: ["categories"]))
+                categoryVM.fetchCategories(WebRequest(endpoint: .products,path: ["categories"]))
                 productVM.fetchProduct(WebRequest(endpoint: .products,path: ["category","\(lowercaseSelected.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "electronics")"]))
             }
             

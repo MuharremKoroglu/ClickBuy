@@ -11,7 +11,7 @@ import Foundation
 class ProductViewModel : ObservableObject {
     
     @Published var filteredProductList = [ProductList]()
-    var productList = [ProductList]()
+    private var productList = [ProductList]()
     private var webService : ApiService
     
     init(webService: ApiService) {
